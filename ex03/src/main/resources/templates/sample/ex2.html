@@ -3,13 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .target{
+            background-color: red;
+        }
+
+    </style>
 </head>
 <body>
 
     <ul>
-        <li th:each="dto, state : ${list}" th:if="${dto.sno % 5 == 0 }">
-            [[${dto}]]
-        </li>
+        <th:block th:each="dto: ${list}">
+            <li th:text="${dto.sno % 5 == 0} ? ${dto.sno} : ${dto.first}"></li>
+        </th:block>
     </ul>
 
 </body>
