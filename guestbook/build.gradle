@@ -44,7 +44,7 @@ def querydslDir = "$buildDir/generated/querydsl"
 
 querydsl{
     jpa = true
-    querydslSourcesDir = querydslSourcesDir
+    querydslSourcesDir = querydslDir
 }
 
 sourceSets{
