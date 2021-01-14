@@ -75,6 +75,22 @@
                 .submit();
             });
 
+            $(".listBtn").click(()=>{
+
+                let pageInfo = $("input[name='page']");
+
+                actionForm.empty();
+                actionForm.append(pageInfo);
+                actionForm
+                .attr("action", "/guestbook/list")
+                .attr("method", "get");
+
+                console.log(actionForm.html());
+                actionForm.submit();
+            });
+
+
+
         </script>
 
 
