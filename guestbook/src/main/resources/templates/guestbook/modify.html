@@ -11,6 +11,8 @@
 
             <!-- 페이지 번호 -->
             <input type="hidden" name="page" th:value="${requestDTO.page}">
+            <input type="hidden" name="type" th:value="${requestDTO.type}">
+            <input type="hidden" name="keyword" th:value="${requestDTO.keyword}">
 
             <div class="form-group">
                 <label>Gno</label>
@@ -77,15 +79,22 @@
 
             $(".listBtn").click(()=>{
 
-                let pageInfo = $("input[name='page']");
+                //let pageInfo = $("input[name='page']");
+
+                let page = $("input[name='page']");
+                let type = $("input[name='type']");
+                let keyword = $("input[name='keyword']");
 
                 actionForm.empty();
-                actionForm.append(pageInfo);
+
+                actionForm.append(page);
+                actionForm.append(type);
+                actionForm.append(keyword);
+
                 actionForm
                 .attr("action", "/guestbook/list")
                 .attr("method", "get");
 
-                console.log(actionForm.html());
                 actionForm.submit();
             });
 
