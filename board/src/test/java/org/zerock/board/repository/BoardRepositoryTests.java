@@ -41,7 +41,7 @@ public class BoardRepositoryTests {
     }
 
     @Transactional
-    //@Test
+    @Test
     public void testRead1(){
 
         Optional<Board> result = boardRepository.findById(100L);
@@ -105,7 +105,7 @@ public class BoardRepositoryTests {
 
     }
 
-    @Test
+    //@Test
     public void testSearchPage(){
 
         Pageable pageable =

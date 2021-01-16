@@ -3,6 +3,7 @@ package org.zerock.board.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 import org.zerock.board.entity.Board;
 import org.zerock.board.entity.Reply;
 
@@ -11,6 +12,7 @@ import java.util.List;
 public interface ReplyRepository extends JpaRepository<Reply, Long> {
 
     //Board 삭제시에 댓글들 삭제
+    @Transactional
     @Modifying
     @Query("delete from Reply r WHERE r.board.bno = :bno")
     void deleteByBno(Long bno);

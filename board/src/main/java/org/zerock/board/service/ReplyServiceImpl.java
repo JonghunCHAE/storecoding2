@@ -2,6 +2,7 @@ package org.zerock.board.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.zerock.board.dto.ReplyDTO;
 import org.zerock.board.entity.Board;
 import org.zerock.board.entity.Reply;
