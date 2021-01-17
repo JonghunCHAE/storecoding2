@@ -31,14 +31,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.logout();
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    //@Override
+    //protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
         //사용자 계정은 user1
-        auth.inMemoryAuthentication().withUser("user1")
+    //    auth.inMemoryAuthentication().withUser("user1")
         //1111패스워드 인코딩 결과
-        .password("$2a$10$g0KCQ2qGRELr19VUuWCkU.p/eX5O1huX.aM88TG2hL1IUYh1zPXs2")
-        .roles("USER");
-    }
+    //    .password("$2a$10$g0KCQ2qGRELr19VUuWCkU.p/eX5O1huX.aM88TG2hL1IUYh1zPXs2")
+    //    .roles("USER");
+    //}
 
 }
