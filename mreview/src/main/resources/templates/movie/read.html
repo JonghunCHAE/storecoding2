@@ -56,7 +56,7 @@
 
         <div class="uploadResult">
             <ul>
-                <li th:each="movieImage: ${dto.imageDTOList}">
+                <li th:each="movieImage: ${dto.imageDTOList}" th:data-file="${movieImage.getThumbnailURL()}">
                     <img th:if="${movieImage.path != null}" th:src="|/display?fileName=${movieImage.getThumbnailURL()}|">
                 </li>
             </ul>
@@ -284,6 +284,17 @@
                     });
                     reviewModal.modal('hide');
                 });
+
+                $(".uploadResult li").click(function(){
+
+                    let file = $(this).data("file");
+
+                    console.log(file);
+
+                    $(".imageModal .modal-body").html("<img style='width:100%' src='/display?fileName=" + file + "&size=1'>");
+
+                    $(".imageModal").modal("show");
+                })
 
 
                 getMovieReviews();
