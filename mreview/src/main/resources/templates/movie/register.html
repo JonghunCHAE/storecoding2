@@ -28,6 +28,40 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
 
+        <style>
+            .uploadResult {
+                width: 100%;
+                background-color: gray;
+                margin-top: 10px;
+            }
+
+            .uploadResult ul {
+                display: flex;
+                flex-flow: row;
+                justify-content: center;
+                align-items: center;
+                vertical-align: top;
+                overflow: auto;
+            }
+
+            .uploadResult ul li {
+                list-style: none;
+                padding: 10px;
+                margin-left: 2em;
+            }
+
+            .uploadResult ul li img {
+                width: 100px;
+            }
+
+        </style>
+
+        <div class="uploadResult">
+            <ul>
+
+            </ul>
+        </div>
+
         <script>
 
             $(document).ready(e =>{
@@ -91,6 +125,7 @@
                         dataType: 'json',
                         success: result => {
                             console.log(result);
+                            showResult(result);
                         },
                         error : (jqXHR, textStatus, errorThrown) => {
                             console.log(textStatus);
@@ -98,6 +133,70 @@
 
                     });//$.ajax
                 });
+
+                function showResult(uploadResultArr){
+
+                    let uploadUL = $(".uploadResult ul");
+
+                    let str = "";
+
+                    $(uploadResultArr).each((i, obj) => {
+
+                        str += "<li data-name='" + obj.fileName + "' data-path='" + obj.folderPath + "' data-uuid='" + obj.uuid + "'>";
+                        str += " <div>";
+                        str += "<button type='button' data-file=\'" + obj.imageURL + "\' ";
+                        str += " class='btn-warning btn-sm'>X</button><br>";
+                        str += "<img src='/display?fileName=" + obj.thumbnailURL + "'>";
+                        str += "</div>";
+                        str += "</li>";
+                    });
+                    uploadUL.append(str);
+                }
+
+
+                $(".uploadResult").on("click", "li button", function(e){
+
+                    console.log("delete file");
+
+                    let targetFile = $(this).data("file");
+
+                    let targetLi = $(this).closest("li");
+
+                    $.ajax({
+                        url: '/removeFile',
+                        data: {fileName: targetFile},
+                        dataType: 'text',
+                        type: 'POST',
+                        success: result =>{
+                            alert(result);
+                            targetLi.remove();
+                        }
+                    });
+
+                });
+
+                //prevent submit
+                $(".btn-primary").on("click", e => {
+
+                    e.preventDefault();
+
+                    let str = "";
+
+                    $(".uploadResult li").each((i, obj) =>{
+
+                        let target = $(obj);
+
+                        str += "<input type='hidden' name='imageDTOList[" + i + "].imgName' value='" + target.data('name') + "'>";
+                        str += "<input type='hidden' name='imageDTOList[" + i + "].path' value='" + target.data('path') + "'>";
+                        str += "<input type='hidden' name='imageDTOList[" + i + "].uuid' value='" + target.data('uuid') + "'>";
+                    });
+
+                    //태그들이 추가된 것을 확인 후에 comment를 제거
+                    $(".box").html(str);
+
+                    $("form").submit();
+                });
+
 
 
             });//document ready
