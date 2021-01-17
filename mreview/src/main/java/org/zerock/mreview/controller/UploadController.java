@@ -39,6 +39,7 @@ public class UploadController {
 
         List<UploadResultDTO> resultDTOList = new ArrayList<>();
 
+
         for(MultipartFile uploadFile: uploadFiles){
 
             //이미지 파일만 업로드 가능
@@ -138,7 +139,7 @@ public class UploadController {
 
         String str = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
 
-        String folderPath = str.replace("//", File.separator);
+        String folderPath = str.replace("\\", File.separator);
 
         //make folder --------
         File uploadPathFolder = new File(uploadPath, folderPath);
